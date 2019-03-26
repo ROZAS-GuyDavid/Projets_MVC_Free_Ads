@@ -11,6 +11,24 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', ['uses' => 'IndexController@showIndex', 'as' => 'accueil']);
+
+// Route::get('index', function () {
+//     return view('index', 'IndexController@showIndex')->name('index');
+// });
+// syntaxe a revoir
+
+// Route::get('/index', 'IndexController@showIndex')->name('index');
+// route nomée
+
+// Route::get('/index', ['uses' => 'IndexController@showIndex', 'as' => 'accueil']);
+//groupe de routes 
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
