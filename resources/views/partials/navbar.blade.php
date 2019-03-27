@@ -39,6 +39,8 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
+                        <a class="btn btn-primary" href="{{Route('user.settings')}}" role="button"><i class="fas fa-cog"></i></a>
+
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
