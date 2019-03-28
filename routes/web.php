@@ -21,4 +21,5 @@ Route::resource('user','UserController');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/user-settings', ['uses' => 'UserController@edit', 'as' => 'user.settings']);  
     Route::post('/changePassword', ['uses' => 'UserController@changePassword', 'as' => 'changePassword']);
+    Route::get('/deleteUser', ['uses' => 'UserController@destroy', 'as' => 'deleteUser']);
 });

@@ -74,6 +74,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update($request->all());
+        return redirect()->back()->with("success","infos changed successfully !");
     }
 
     /**
@@ -113,6 +114,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user = Auth::user();
+        $user->delete();
+        return redirect()->route('login')->with("success","User delete with success");
     }
 }
