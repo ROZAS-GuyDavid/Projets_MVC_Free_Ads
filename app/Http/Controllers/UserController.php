@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Auth;
+use MercurySeries\Flashy\Flashy;
 
 class UserController extends Controller
 {
@@ -73,8 +75,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
-        return redirect()->back()->with("success","infos changed successfully !");
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ]);
+
+        if($validator->fails()){
+            return redirect(route('user.settings', $user))->withErrors($validator->errors());
+        }else {
+            $user->update($request->all());
+            Flashy::message('infos changed successfully !');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -103,7 +115,8 @@ class UserController extends Controller
         $user = Auth::user();
         $user->password = bcrypt($request->get('new-password'));
         $user->save();
-        return redirect()->back()->with("success","Password changed successfully !");
+        Flashy::message('Password changed successfully !');
+        return redirect()->back();
     }
 
     /**
@@ -116,6 +129,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $user->delete();
-        return redirect()->route('login')->with("success","User delete with success");
+        Flashy::message('User delete with success !');
+        return redirect()->route('login');
     }
 }

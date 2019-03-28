@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <div class="row">
+                        <a href="{{route('annonce.create')}}"><button type="button" class="btn btn-primary">créez une annonce</button></a>
+                    </div>
                 </div>
             </div>
         </div>
