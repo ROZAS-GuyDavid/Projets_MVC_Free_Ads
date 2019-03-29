@@ -19,6 +19,8 @@ class CreateAnnoncesTable extends Migration
             $table->text('description')->nullable();
             $table->unsignedDecimal('price', 7, 2)->nullable();
             $table->enum('status', ['published', 'unpublished', 'archived'])->default('unpublished');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });
     }
@@ -30,6 +32,10 @@ class CreateAnnoncesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('annonces');
+        // Schema::dropIfExists('annonces');
+        Schema::table('annonces', function (Blueprint $table) {
+            $table->dropForeign('annonces_user_id_foreign');
+            $table->drop('annonces');
+        });
     }
 }

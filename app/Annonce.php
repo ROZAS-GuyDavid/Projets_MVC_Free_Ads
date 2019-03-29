@@ -12,10 +12,16 @@ class Annonce extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'price'
+        'title', 'description', 'price','user_id'
     ];
+    
     public function picture()
     {
         return $this->hasMany(Picture::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
